@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+int main() {
+    char text[100], key[27];
+    int choice, i, j;
+
+    printf("Enter 26-letter key: ");
+    scanf("%s", key);
+    getchar();
+
+    printf("Enter message: ");
+    fgets(text, 100, stdin);
+
+    printf("1. Encrypt\n2. Decrypt\nChoice: ");
+    scanf("%d", &choice);
+
+    for(i = 0; text[i] != '\0'; i++) {
+        if(isalpha(text[i])) {
+            if(choice == 1) {
+                text[i] = key[tolower(text[i]) - 'a'];
+            } 
+            else {
+                for(j = 0; j < 26; j++) {
+                    if(tolower(key[j]) == tolower(text[i])) {
+                        text[i] = 'a' + j;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    printf("Result: %s", text);
+
+    return 0;
+}
